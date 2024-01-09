@@ -12,9 +12,16 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String descricao;
+
+    @Column(nullable = false)
     private LocalDateTime criadoEm;
 
     public Autor() {

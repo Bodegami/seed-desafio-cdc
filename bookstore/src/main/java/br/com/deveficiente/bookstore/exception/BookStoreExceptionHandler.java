@@ -14,13 +14,13 @@ import java.util.List;
 public class BookStoreExceptionHandler {
 
    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-   public ResponseEntity<ErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
+   public ResponseEntity<ErrorResponse> methodArgumentNotValidException(
+           MethodArgumentNotValidException ex, WebRequest request) {
+
       List<FieldError> errors = new ArrayList<>();
       ex.getBindingResult()
               .getFieldErrors()
-              .forEach(e -> {
-         errors.add(new FieldError(e.getField(), e.getDefaultMessage()));
-      });
+              .forEach(e -> errors.add(new FieldError(e.getField(), e.getDefaultMessage())));
 
       ErrorResponse error =  new ErrorResponse(ex.getStatusCode().value(), LocalDateTime.now().toString(), errors);
       return ResponseEntity.badRequest().body(error);
