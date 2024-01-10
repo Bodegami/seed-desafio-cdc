@@ -1,5 +1,6 @@
 package br.com.deveficiente.bookstore.autor;
 
+import br.com.deveficiente.bookstore.validadores.UniqueValue;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
