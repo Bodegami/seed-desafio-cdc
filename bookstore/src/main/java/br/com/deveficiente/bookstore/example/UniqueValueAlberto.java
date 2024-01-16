@@ -1,4 +1,4 @@
-package br.com.deveficiente.bookstore.validadores;
+package br.com.deveficiente.bookstore.example;
 
 import br.com.deveficiente.bookstore.example.UniqueValueValidatorAlberto;
 import jakarta.validation.Constraint;

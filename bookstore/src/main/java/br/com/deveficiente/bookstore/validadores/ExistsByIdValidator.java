@@ -1,4 +1,4 @@
-package br.com.deveficiente.bookstore.example;
+package br.com.deveficiente.bookstore.validadores;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-public class UniqueValueValidatorAlberto implements ConstraintValidator<UniqueValueAlberto, Object> {
+public class ExistsByIdValidator implements ConstraintValidator<ExistsById, Long> {
 
     private String domainAttribute;
     private Class<?> klass;
@@ -18,19 +18,19 @@ public class UniqueValueValidatorAlberto implements ConstraintValidator<UniqueVa
     private EntityManager em;
 
     @Override
-    public void initialize(UniqueValueAlberto params) {
+    public void initialize(ExistsById params) {
         domainAttribute = params.fieldName();
         klass = params.domainClass();
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Long value, ConstraintValidatorContext constraintValidatorContext) {
         Query query = em.createQuery("select 1 from " + klass.getName() + " where " + domainAttribute + " = :value");
         query.setParameter("value", value);
         List<?> list = query.getResultList();
         Assert.state(list.size() <= 1,
                 "Foi encontrado mais de um " + klass + "com o atributo " + domainAttribute + " = " + value);
 
-        return list.isEmpty();
+        return !list.isEmpty();
     }
 }

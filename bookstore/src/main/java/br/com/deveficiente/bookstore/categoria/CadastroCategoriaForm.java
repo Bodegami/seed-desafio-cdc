@@ -1,8 +1,6 @@
 package br.com.deveficiente.bookstore.categoria;
 
-import br.com.deveficiente.bookstore.validadores.UniqueCategoria;
-import br.com.deveficiente.bookstore.validadores.UniqueValue;
-import br.com.deveficiente.bookstore.validadores.UniqueValueAlberto;
+import br.com.deveficiente.bookstore.example.UniqueValueAlberto;
 import jakarta.validation.constraints.NotBlank;
 
 public record CadastroCategoriaForm(
@@ -12,7 +10,7 @@ public record CadastroCategoriaForm(
         String nome
 ) {
 
-    Categoria toModel() {
+    public Categoria toModel() {
         return new Categoria(nome.trim().toLowerCase());
     }
 }
