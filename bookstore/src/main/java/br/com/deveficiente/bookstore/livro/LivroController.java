@@ -1,7 +1,7 @@
 package br.com.deveficiente.bookstore.livro;
 
-import br.com.deveficiente.bookstore.validadores.ExistsById;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -39,10 +39,12 @@ public class LivroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LivroDetailsResponse> buscaPeloId(@PathVariable @ExistsById(
-            domainClass = Livro.class, fieldName = "id") Long id) {
+    public ResponseEntity<LivroDetailsResponse> buscaPeloId(@PathVariable Long id) {
 
         Livro livro = em.find(Livro.class, id);
+        if (livro == null) {
+            throw new EntityNotFoundException(String.format("Livro de id: %d - não encontrado", id));
+        }
         LivroDetailsResponse response = new LivroDetailsResponse(livro);
 
         return ResponseEntity.ok(response);
