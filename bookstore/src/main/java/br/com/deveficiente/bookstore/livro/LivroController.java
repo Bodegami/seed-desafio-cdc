@@ -1,5 +1,6 @@
 package br.com.deveficiente.bookstore.livro;
 
+import br.com.deveficiente.bookstore.validadores.ExistsById;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
@@ -35,6 +36,16 @@ public class LivroController {
         List<LivroResponse> livrosResponse = resultList.stream().map(LivroResponse::new).toList();
 
         return ResponseEntity.ok(livrosResponse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LivroDetailsResponse> buscaPeloId(@PathVariable @ExistsById(
+            domainClass = Livro.class, fieldName = "id") Long id) {
+
+        Livro livro = em.find(Livro.class, id);
+        LivroDetailsResponse response = new LivroDetailsResponse(livro);
+
+        return ResponseEntity.ok(response);
     }
 
 }

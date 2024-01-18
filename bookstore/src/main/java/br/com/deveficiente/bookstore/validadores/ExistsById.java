@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 
 @Constraint(validatedBy = ExistsByIdValidator.class)
-@Target({ElementType.FIELD})
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ExistsById {

@@ -34,6 +34,18 @@ public class Autor {
         this.criadoEm = LocalDateTime.now();
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
     @Override
     public String toString() {
         return "Autor{" +
@@ -44,4 +56,6 @@ public class Autor {
                 ", criadoEm=" + criadoEm +
                 '}';
     }
+
+
 }
