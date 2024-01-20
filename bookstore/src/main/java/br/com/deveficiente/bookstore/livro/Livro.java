@@ -97,19 +97,8 @@ public class Livro {
         return dataPublicacao;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
     public Autor getAutor() {
         return autor;
     }
 
-    public void setAutor(Autor autor) {
-        this.autor = autor;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 }

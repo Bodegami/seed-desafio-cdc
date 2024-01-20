@@ -1,4 +1,4 @@
-package br.com.deveficiente.bookstore.example;
+package br.com.deveficiente.bookstore.validadores;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-public class UniqueValueValidatorAlberto implements ConstraintValidator<UniqueValueAlberto, String> {
+public class IsValidValidator implements ConstraintValidator<IsValid, String> {
 
     private String domainAttribute;
     private Class<?> klass;
@@ -18,7 +18,7 @@ public class UniqueValueValidatorAlberto implements ConstraintValidator<UniqueVa
     private EntityManager em;
 
     @Override
-    public void initialize(UniqueValueAlberto params) {
+    public void initialize(IsValid params) {
         domainAttribute = params.fieldName();
         klass = params.domainClass();
     }
@@ -31,6 +31,6 @@ public class UniqueValueValidatorAlberto implements ConstraintValidator<UniqueVa
         Assert.state(list.size() <= 1,
                 "Foi encontrado mais de um " + klass + "com o atributo " + domainAttribute + " = " + value);
 
-        return list.isEmpty();
+        return !list.isEmpty();
     }
 }

@@ -1,7 +1,7 @@
 package br.com.deveficiente.bookstore.livro;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public record LivroDetailsResponse(
         String titulo,
@@ -10,7 +10,7 @@ public record LivroDetailsResponse(
         BigDecimal preco,
         Integer quantidadeDePaginas,
         String isbn,
-        LocalDate dataPublicacao,
+        String dataPublicacao,
         String autorNome,
         String autorDescricao
 ) {
@@ -23,7 +23,7 @@ public record LivroDetailsResponse(
                 livro.getPreco(),
                 livro.getQuantidadeDePaginas(),
                 livro.getIsbn(),
-                livro.getDataPublicacao(),
+                livro.getDataPublicacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 livro.getAutor().getNome(),
                 livro.getAutor().getDescricao()
         );

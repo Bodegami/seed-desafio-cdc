@@ -20,7 +20,7 @@ public record CadastroAutorForm(
 
         public Autor toModel() {
                 return new Autor(
-                        this.nome.trim(),
+                        this.nome.trim().toLowerCase(),
                         this.email.trim().toLowerCase(),
                         this.descricao);
         }

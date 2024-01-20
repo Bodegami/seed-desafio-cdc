@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CategoriaValidator implements ConstraintValidator<UniqueCategoria, String> {
+public class UniqueCategoriaValidator implements ConstraintValidator<UniqueCategoria, String> {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
