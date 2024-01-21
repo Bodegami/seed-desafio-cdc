@@ -17,8 +17,8 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, St
     @Override
     public boolean isValid(String request, ConstraintValidatorContext constraintValidatorContext) {
 
-        boolean isValidAutor = autorRepository.existsByEmail(request.trim());
-        boolean isValidCategoria = categoriaRepository.existsByNome(request.trim());
+        boolean isValidAutor = autorRepository.existsByEmail(request.trim().toLowerCase());
+        boolean isValidCategoria = categoriaRepository.existsByNome(request.trim().toLowerCase());
 
         return !isValidAutor && !isValidCategoria;
     }

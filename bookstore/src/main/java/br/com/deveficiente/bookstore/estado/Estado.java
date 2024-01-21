@@ -25,4 +25,20 @@ public class Estado {
         this.nome = nome;
         this.pais = pais;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public boolean isFrom(Pais pais) {
+        return this.pais.equals(pais);
+    }
 }

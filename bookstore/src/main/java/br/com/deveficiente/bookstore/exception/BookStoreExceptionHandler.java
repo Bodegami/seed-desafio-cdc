@@ -1,7 +1,6 @@
 package br.com.deveficiente.bookstore.exception;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +10,8 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class BookStoreExceptionHandler {
@@ -34,8 +35,18 @@ public class BookStoreExceptionHandler {
 
       List<FieldError> errors = new ArrayList<>();
       errors.add(new FieldError("id", ex.getMessage()));
-      ErrorResponse error =  new ErrorResponse(HttpStatus.NOT_FOUND.value(), LocalDateTime.now().toString(), errors);
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+      ErrorResponse error =  new ErrorResponse(NOT_FOUND.value(), LocalDateTime.now().toString(), errors);
+      return ResponseEntity.status(NOT_FOUND).body(error);
+   }
+
+   @ExceptionHandler(value = {EstadoNaoPertenceAPaisException.class})
+   public ResponseEntity<ErrorResponse> estadoNaoPertenceAPaisException(
+           EstadoNaoPertenceAPaisException ex, WebRequest request) {
+
+      List<FieldError> errors = new ArrayList<>();
+      errors.add(new FieldError("estado", ex.getMessage()));
+      ErrorResponse error =  new ErrorResponse(BAD_REQUEST.value(), LocalDateTime.now().toString(), errors);
+      return ResponseEntity.status(BAD_REQUEST).body(error);
    }
 
 }
