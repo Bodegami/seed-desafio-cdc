@@ -2,6 +2,7 @@ package br.com.deveficiente.bookstore.compra;
 
 import jakarta.persistence.*;
 
+import java.util.Map;
 import java.util.function.Function;
 
 @Entity
@@ -40,4 +41,7 @@ public class Compra {
         this.pedido = funcaoCriacaoPedido.apply(this);
     }
 
+    public Long getId() {
+        return id;
+    }
 }
