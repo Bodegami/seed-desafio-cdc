@@ -49,4 +49,14 @@ public class BookStoreExceptionHandler {
       return ResponseEntity.status(BAD_REQUEST).body(error);
    }
 
+   @ExceptionHandler(value = {CompraComValorDivergenteException.class})
+   public ResponseEntity<ErrorResponse> compraComValorDivergenteException(
+           CompraComValorDivergenteException ex, WebRequest request) {
+
+      List<FieldError> errors = new ArrayList<>();
+      errors.add(new FieldError("total", ex.getMessage()));
+      ErrorResponse error =  new ErrorResponse(UNPROCESSABLE_ENTITY.value(), LocalDateTime.now().toString(), errors);
+      return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(error);
+   }
+
 }

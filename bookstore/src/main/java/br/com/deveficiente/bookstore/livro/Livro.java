@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "livros")
@@ -101,4 +102,16 @@ public class Livro {
         return autor;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Livro livro = (Livro) o;
+        return Objects.equals(isbn, livro.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn);
+    }
 }

@@ -7,12 +7,15 @@ import br.com.deveficiente.bookstore.pais.Pais;
 import br.com.deveficiente.bookstore.validadores.CpfECnpj;
 import br.com.deveficiente.bookstore.validadores.ExistsById;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record CadastroCompraForm(
+import java.util.function.Function;
+
+
+public record NovaCompraForm(
         @NotBlank
         String nome,
         @NotBlank
@@ -31,10 +34,9 @@ public record CadastroCompraForm(
         String complemento,
         @NotBlank
         String cidade,
-        @NotNull
         @ExistsById(domainClass = Pais.class, fieldName = "id")
         Long paisId,
-        @NotNull
+
         @ExistsById(domainClass = Estado.class, fieldName = "id")
         Long estadoId,
         @NotBlank
@@ -43,19 +45,28 @@ public record CadastroCompraForm(
         String telefone,
         @NotBlank
         @Pattern(regexp = "[0-9]{5}-[0-9]{3}")
-        String cep
+        String cep,
+        @Valid
+        NovoPedidoForm pedido
 ) {
 
     public Compra toModel(EntityManager em) {
-        Estado estado = em.find(Estado.class, estadoId);
         Pais pais = em.find(Pais.class, paisId);
+        Estado estado = null;
 
-        if (!estado.isFrom(pais)) {
-            throw new EstadoNaoPertenceAPaisException(String.format(
-                    "O estado informado: %s - não pertence ao pais informado: %s", estado.getNome(), pais.getNome()));
+        if (estadoId != null) {
+            estado = em.find(Estado.class, estadoId);
+
+            if (!estado.isFrom(pais)) {
+                throw new EstadoNaoPertenceAPaisException(String.format(
+                        "O estado informado: %s - não pertence ao pais informado: %s", estado.getNome(), pais.getNome()));
+            }
+
         }
 
-        return new Compra(
+        Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(em);
+
+        Compra compra = new Compra(
                 nome,
                 sobrenome,
                 documento,
@@ -68,8 +79,13 @@ public record CadastroCompraForm(
                         pais,
                         estado,
                         cep
-                )
+                ),
+                funcaoCriacaoPedido
         );
+
+
+
+        return compra;
     }
 
 }

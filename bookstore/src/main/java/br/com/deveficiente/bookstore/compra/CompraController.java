@@ -3,6 +3,7 @@ package br.com.deveficiente.bookstore.compra;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +20,11 @@ public class CompraController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> cadastraCompra(@RequestBody @Valid CadastroCompraForm form) {
+    public ResponseEntity<Void> cadastraCompra(@RequestBody @Valid NovaCompraForm form) {
         Compra compra = form.toModel(em);
 
         em.persist(compra);
-        System.out.println(form);
+        em.close();
 
         return ResponseEntity.ok().build();
     }
