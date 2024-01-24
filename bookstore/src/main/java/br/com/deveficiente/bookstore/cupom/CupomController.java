@@ -1,4 +1,4 @@
-package br.com.deveficiente.bookstore.cumpom;
+package br.com.deveficiente.bookstore.cupom;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

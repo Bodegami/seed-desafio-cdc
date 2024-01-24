@@ -59,4 +59,14 @@ public class BookStoreExceptionHandler {
       return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(error);
    }
 
+   @ExceptionHandler(value = {CupomInvalidoException.class})
+   public ResponseEntity<ErrorResponse> cupomInvalidoException(
+           CupomInvalidoException ex, WebRequest request) {
+
+      List<FieldError> errors = new ArrayList<>();
+      errors.add(new FieldError("cupom", ex.getMessage()));
+      ErrorResponse error =  new ErrorResponse(BAD_REQUEST.value(), LocalDateTime.now().toString(), errors);
+      return ResponseEntity.status(BAD_REQUEST).body(error);
+   }
+
 }

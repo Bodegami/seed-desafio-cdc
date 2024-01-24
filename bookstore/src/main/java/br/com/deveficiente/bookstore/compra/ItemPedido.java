@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @Embeddable
 public class ItemPedido {
 
+    //1
     @ManyToOne
     private Livro livro;
     @Positive

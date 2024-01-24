@@ -19,12 +19,15 @@ import java.net.URI;
 @RequestMapping("/compras")
 public class CompraController {
 
+    //1
     @PersistenceContext
     private EntityManager em;
 
+    //1
     @PostMapping
     @Transactional
     public ResponseEntity<Void> cadastraCompra(@RequestBody @Valid NovaCompraForm form) {
+        //1
         Compra compra = form.toModel(em);
 
         em.persist(compra);

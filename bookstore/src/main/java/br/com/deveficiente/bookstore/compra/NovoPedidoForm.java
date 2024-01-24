@@ -1,6 +1,5 @@
 package br.com.deveficiente.bookstore.compra;
 
-import br.com.deveficiente.bookstore.livro.Livro;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -20,11 +19,14 @@ public record NovoPedidoForm(
 
         @Valid
         @Size(min = 1, message = "O pedido deve conter pelo menos 1 item...")
+        //1
         List<NovoItemPedido> itens
 ) {
 
+        //2
         public Function<Compra, Pedido> toModel(EntityManager em) {
 
+                //3
                 Set<ItemPedido> itensDoPedido = itens.stream().map(item -> item.toModel(em)).collect(Collectors.toSet());
                 return (compra) -> {
                         Pedido pedido = new Pedido(compra, itensDoPedido);

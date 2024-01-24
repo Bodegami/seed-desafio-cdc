@@ -12,8 +12,11 @@ public class Endereco {
     private String complemento;
     private String cidade;
 
+    //1
     @ManyToOne
     private Pais pais;
+
+    //1
     @ManyToOne
     private Estado estado;
     private String cep;

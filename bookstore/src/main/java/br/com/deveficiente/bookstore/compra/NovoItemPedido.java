@@ -16,6 +16,7 @@ public record NovoItemPedido(
 ) {
 
         ItemPedido toModel(EntityManager em) {
+                //1
                 Livro livro = em.find(Livro.class, idLivro);
                 return new ItemPedido(livro, quantidade);
         }

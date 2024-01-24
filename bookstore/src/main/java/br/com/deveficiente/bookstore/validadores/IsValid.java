@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 
 @Constraint(validatedBy = IsValidValidator.class)
-@Target({ElementType.PARAMETER, ElementType.FIELD})
+@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.LOCAL_VARIABLE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 

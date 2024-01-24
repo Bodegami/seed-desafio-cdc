@@ -1,8 +1,11 @@
-package br.com.deveficiente.bookstore.cumpom;
+package br.com.deveficiente.bookstore.cupom;
 
+import br.com.deveficiente.bookstore.compra.CupomAplicado;
+import br.com.deveficiente.bookstore.exception.CupomInvalidoException;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "cupons")
@@ -24,6 +27,22 @@ public class Cupom {
         this.codigo = codigo;
         this.percentualDesconto = percentualDesconto;
         this.validade = validade;
+    }
+
+    public boolean isValid(LocalDate dataAtual) {
+
+        long days = ChronoUnit.DAYS.between(dataAtual, validade);
+        System.out.println(days);
+
+        return days > 0;
+    }
+
+    public Double getPercentualDesconto() {
+        return percentualDesconto;
+    }
+
+    public LocalDate getValidade() {
+        return validade;
     }
 
     @Override

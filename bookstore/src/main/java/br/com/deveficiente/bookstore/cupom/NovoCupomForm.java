@@ -1,4 +1,4 @@
-package br.com.deveficiente.bookstore.cumpom;
+package br.com.deveficiente.bookstore.cupom;
 
 import br.com.deveficiente.bookstore.example.UniqueValueAlberto;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,4 +24,5 @@ public record NovoCupomForm(
     public Cupom toModel() {
         return new Cupom(codigo.toLowerCase(), percentualDesconto, validade);
     }
+
 }
