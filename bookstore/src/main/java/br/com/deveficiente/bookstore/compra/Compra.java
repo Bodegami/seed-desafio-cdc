@@ -4,6 +4,7 @@ import br.com.deveficiente.bookstore.cupom.Cupom;
 import br.com.deveficiente.bookstore.exception.CupomInvalidoException;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.Function;
 
@@ -56,6 +57,38 @@ public class Compra {
         return id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public CupomAplicado getCupom() {
+        return cupom;
+    }
+
     public void aplicaCupom(EntityManager em, String codigo) {
         //Assert.isNull(this.cupom, "");
         //1
@@ -72,7 +105,7 @@ public class Compra {
 
             //1
             if (resultList.isEmpty()) {
-                throw new CupomInvalidoException("Codigo de cupom inválido:" + codigo);
+                throw new CupomInvalidoException("Codigo de cupom inválido: " + codigo);
             }
 
             cupom = (Cupom) resultList.get(0);
@@ -81,6 +114,19 @@ public class Compra {
         }
 
         this.cupom = cupomAplicado;
+    }
+
+    public BigDecimal calculaValorFinal() {
+        double totalSemDesconto = pedido.getItens().stream()
+                .mapToDouble(item -> item.getPrecoDoMomento().doubleValue() * item.getQuantidade())
+                .sum();
+
+        if (cupom != null) {
+            Double percentualDoMomentoDaCompra = cupom.getCupom().getPercentualDesconto();
+            return new BigDecimal(totalSemDesconto - ((percentualDoMomentoDaCompra / 100) * totalSemDesconto));
+        }
+
+        return new BigDecimal(totalSemDesconto);
     }
 
 }

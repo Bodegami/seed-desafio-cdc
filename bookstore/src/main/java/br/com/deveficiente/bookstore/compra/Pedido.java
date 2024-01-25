@@ -32,6 +32,10 @@ public class Pedido {
         this.itens.addAll(itens);
     }
 
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

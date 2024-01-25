@@ -33,4 +33,28 @@ public class Endereco {
         this.estado = estado;
         this.cep = cep;
     }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getPais() {
+        return pais.getNome();
+    }
+
+    public String getEstado() {
+        return estado.getNome();
+    }
+
+    public String getCep() {
+        return cep;
+    }
 }

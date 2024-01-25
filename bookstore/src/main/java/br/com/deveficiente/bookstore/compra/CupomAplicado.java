@@ -37,4 +37,15 @@ public class CupomAplicado {
         this.validade = cupom.getValidade();
     }
 
+    public Cupom getCupom() {
+        return cupom;
+    }
+
+    public Double getPercentualDoMomento() {
+        return percentualDoMomento;
+    }
+
+    public LocalDate getValidade() {
+        return validade;
+    }
 }

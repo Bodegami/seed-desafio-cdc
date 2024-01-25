@@ -29,6 +29,18 @@ public class ItemPedido {
         this.precoDoMomento = livro.getPreco();
     }
 
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public BigDecimal getPrecoDoMomento() {
+        return precoDoMomento;
+    }
+
     @Override
     public String toString() {
         return "ItemPedido{" +

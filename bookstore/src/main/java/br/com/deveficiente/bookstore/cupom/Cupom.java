@@ -1,7 +1,5 @@
 package br.com.deveficiente.bookstore.cupom;
 
-import br.com.deveficiente.bookstore.compra.CupomAplicado;
-import br.com.deveficiente.bookstore.exception.CupomInvalidoException;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -30,9 +28,7 @@ public class Cupom {
     }
 
     public boolean isValid(LocalDate dataAtual) {
-
         long days = ChronoUnit.DAYS.between(dataAtual, validade);
-        System.out.println(days);
 
         return days > 0;
     }
