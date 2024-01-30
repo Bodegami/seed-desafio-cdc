@@ -7,6 +7,7 @@ import br.com.deveficiente.bookstore.example.UniqueValueAlberto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.*;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -39,6 +40,9 @@ public record CadastroLivroForm(
         public Livro toModel(EntityManager em) {
                 Categoria categoria = em.find(Categoria.class, categoriaId);
                 Autor autor = em.find(Autor.class, autorId);
+
+                Assert.state(categoria != null, "Você não deveria criar um livro sem categoria!");
+                Assert.state(autor != null, "Você não deveria criar um livro sem autor!");
 
                 return new Livro(
                         titulo,
